@@ -84,6 +84,6 @@ for x = 1:1:(length(txt_data.colheaders) - 1)
     end
 end
 
-save(strcat(path,'\',name),'CoreData');
+save(strcat(destinationpath,'\',name),'CoreData');
 waitfor(msgbox(strcat('File successfully converted! File located at: ',destinationpath),'Success!'));
 clear
