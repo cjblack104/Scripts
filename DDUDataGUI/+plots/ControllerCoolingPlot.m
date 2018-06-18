@@ -6,17 +6,19 @@ function [ output_args ] = ControllerCoolingPlot( CoreData, fig )
 %be made on.
 
 set(gcf,'color','w'); set(gca,'fontsize',16); hold on;
-plot(CoreData.Powertrain.Cooling.ControllerLoopInletTemp,'LineWidth',2);
-plot(CoreData.Powertrain.Cooling.ControllerLoopOutletTemp,'LineWidth',2);
-plot(CoreData.Powertrain.Cooling.ControlBoardTemp,'LineWidth',2);
-plot(CoreData.Powertrain.Cooling.ModuleATemp,'LineWidth',2);
-plot(CoreData.Powertrain.Cooling.ModuleBTemp,'LineWidth',2);
-plot(CoreData.Powertrain.Cooling.ModuleCTemp,'LineWidth',2);
-plot(CoreData.Powertrain.Cooling.GateDriverBoardTemperature,'LineWidth',2);
+plot(CoreData.Powertrain.Cooling.ControllerLoopInletTemp,'LineWidth',1);
+plot(CoreData.Powertrain.Cooling.ControllerLoopOutletTemp,'LineWidth',1);
+plot(CoreData.Powertrain.Cooling.ControlBoardTemp,'LineWidth',1);
+plot(CoreData.Powertrain.Cooling.ModuleATemp,'LineWidth',1);
+plot(CoreData.Powertrain.Cooling.ModuleBTemp,'LineWidth',1);
+plot(CoreData.Powertrain.Cooling.ModuleCTemp,'LineWidth',1);
+plot(CoreData.Powertrain.Cooling.GateDriverBoardTemperature,'LineWidth',1);
 h=legend('Controller Inlet Temp', 'Controller Outlet Temp', 'Control Board Temp', 'Controller Module A Temp', 'Controller Module B Temp','Controller Module C Temp','Gate Driver Board Temp');
 set(h,'FontSize',10);
 xlabel('Time [s]');
 ylabel('Temperature [^{\circ}C]');
 title('Controller Cooling Loop Temperatures');
+ylim([-5 inf])
+xlim auto
 end
 

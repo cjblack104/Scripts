@@ -6,7 +6,7 @@ function [ output_args ] = DCBusPowerPlot( CoreData, fig )
 set(gcf,'color','w'); set(gca,'fontsize',16);hold on;
 %set(f,'name','DC Bus Power','numbertitle','off')
 title('DC Bus Power');
-plot(CoreData.Powertrain.Inverter.CalculatedDCPower,'LineWidth',2);
+plot(CoreData.Powertrain.Inverter.CalculatedDCPower,'LineWidth',1);
 xlabel('Time [s]');
 ylabel('Power [W]');
 end

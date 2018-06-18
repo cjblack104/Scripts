@@ -9,7 +9,7 @@ scatter(CoreData.Powertrain.Motor.ActualMotorRPM.data,abs(CoreData.Powertrain.In
 xlabel('Motor Velocity [RPM]');
 ylabel('Motor Torque [Nm]');
 title('Torque vs RPM');
-xlim([0 4200]);
+xlim([0 4500]);
 ylim([0 600]);
 end
 

@@ -7,16 +7,21 @@ set(gcf,'color','w'); set(gca,'fontsize',16)
 %set(f,'name','DC Bus Voltage and Current','numbertitle','off')
 title('Battery Pack Current and Voltage');
 hold on;
-ax1=subplot(2,1,1);
-plot(CoreData.Powertrain.Inverter.DCBusVoltage,'LineWidth',2);
-title('DC Bus Voltage');
+yyaxis left
+% ax1=subplot(2,1,1);
+plot(CoreData.Powertrain.Inverter.DCBusVoltage);
+% title('DC Bus Voltage');
 xlabel('Time [s]');
 ylabel('Bus Voltage [V]');
-ax2=subplot(2,1,2);
-plot(CoreData.Powertrain.Inverter.DCBusCurrent,'LineWidth',2);
-title('DC Bus Current');
-xlabel('Time [s]');
+yyaxis right
+% ax2=subplot(2,1,2);
+plot(CoreData.Powertrain.Inverter.DCBusCurrent);
+% title('DC Bus Current');
+% xlabel('Time [s]');
 ylabel('Bus Current [A]');
-linkaxes([ax1,ax2],'x');
+% linkaxes([ax1,ax2],'x');
+
+legend Vdc Idc;
+
 end
 
