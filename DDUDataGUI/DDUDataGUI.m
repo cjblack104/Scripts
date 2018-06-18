@@ -22,7 +22,7 @@ function varargout = DDUDataGUI(varargin)
 
 % Edit the above text to modify the response to help DDUDataGUI
 
-% Last Modified by GUIDE v2.5 10-May-2018 12:47:54
+% Last Modified by GUIDE v2.5 16-Jun-2018 17:32:05
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -50,9 +50,30 @@ function DDUDataGUI_OpeningFcn(hObject, eventdata, handles, varargin)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 % varargin   command line arguments to DDUDataGUI (see VARARGIN)
+
+%return path of current function
+
+
+%check for settings folder and load path if present
+current_loc = mfilename('fullpath');
+if exist(strcat(current_loc, 'settings.txt')) == 2 
+    fileID = fopen(strcat(current_loc, 'settings.txt'));
+    startingFolder= fscanf(fileID,'%s');
+    defaultFilePath = fullfile(startingFolder, '*.mat');
+    fclose(fileID);
+else
+    defaultFilePath = '~\';
+end
+
+%launch data selection prompt
 waitfor(msgbox('Press Ok, then select the data file in MATLAB format.','Import Data File'));
-[filename,path] = uigetfile('.mat');
+[filename,path] = uigetfile('C:\Users\bring\Google Drive\Buckeye_Current\Tech\Test_Data\2018PPIHC_RW-3x3\06-10-18 Tire Testing\*.mat','MATLAB Files');
 handles.data = load(strcat(path,filename));
+
+%save selected path as new default location and close
+fileID = fopen(strcat(current_loc, 'settings.txt'),'w'); %clear existing contents
+fprintf(fileID, '%s', path);
+fclose(fileID);
 
 % Choose default command line output for DDUDataGUI
 handles.output = hObject;
@@ -79,50 +100,6 @@ function varargout = DDUDataGUI_OutputFcn(hObject, eventdata, handles)
 
 % Get default command line output from handles structure
 varargout{1} = handles.output;
-
-% --- Executes on button press in pushbutton1.
-function pushbutton1_Callback(hObject, eventdata, handles)
-% hObject    handle to pushbutton1 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-axes(handles.axes1);
-cla;
-
-popup_sel_index = get(handles.popupmenu1, 'Value');
-switch popup_sel_index
-    case 1
-        cla(handles.axes1,'reset')
-        plots.CellTempPlot(handles.data.CoreData)
-    case 2
-        cla(handles.axes1,'reset')
-        waitfor(msgbox('Cell Volt Plot needs reworked.'));
-        %plots.CellVoltPlot(handles.data.CoreData)
-    case 3
-        cla(handles.axes1,'reset')
-        plots.ControllerCoolingPlot(handles.data.CoreData)
-    case 4
-        cla(handles.axes1,'reset')
-        plots.DCBusPowerPlot(handles.data.CoreData)
-    case 5
-        cla(handles.axes1,'reset')
-        plots.DCVoltageCurrentPlot(handles.data.CoreData)
-    case 6
-        cla(handles.axes1,'reset')
-        plots.GPSPlot(handles.data.CoreData)
-    case 7
-        cla(handles.axes1,'reset')
-        plots.MotorCoolingPlot(handles.data.CoreData)
-    case 8
-        cla(handles.axes1,'reset')
-        plots.RPMvsTorquePlot(handles.data.CoreData)
-    case 9
-        cla(handles.axes1,'reset')
-        plots.ThrottleCurrentComparePlot(handles.data.CoreData)
-    case 10
-        cla(handles.axes1,'reset')
-        plots.VelocityPlot(handles.data.CoreData)
-end
-
 
 % --------------------------------------------------------------------
 function FileMenu_Callback(hObject, eventdata, handles)
@@ -173,6 +150,44 @@ function popupmenu1_Callback(hObject, eventdata, handles)
 %        contents{get(hObject,'Value')} returns selected item from popupmenu1
 
 
+axes(handles.axes1);
+cla;
+
+popup_sel_index = get(handles.popupmenu1, 'Value');
+switch popup_sel_index
+    case 1
+        cla(handles.axes1,'reset')
+        plots.CellTempPlot(handles.data.CoreData)
+    case 2
+        cla(handles.axes1,'reset')
+        waitfor(msgbox('Cell Volt Plot needs reworked.'));
+        %plots.CellVoltPlot(handles.data.CoreData)
+    case 3
+        cla(handles.axes1,'reset')
+        plots.ControllerCoolingPlot(handles.data.CoreData)
+    case 4
+        cla(handles.axes1,'reset')
+        plots.DCBusPowerPlot(handles.data.CoreData)
+    case 5
+        cla(handles.axes1,'reset')
+        plots.DCVoltageCurrentPlot(handles.data.CoreData)
+    case 6
+        cla(handles.axes1,'reset')
+        plots.MotorCoolingPlot(handles.data.CoreData)
+    case 7
+        cla(handles.axes1,'reset')
+        plots.RPMvsTorquePlot(handles.data.CoreData)
+    case 8
+        cla(handles.axes1,'reset')
+        plots.ThrottleCurrentComparePlot(handles.data.CoreData)
+    case 9
+        cla(handles.axes1,'reset')
+        plots.VelocityPlot(handles.data.CoreData)
+    case 10
+        cla(handles.axes1,'reset')
+        plots.GPS_SpeedTrace(handles.data.CoreData)
+end
+
 % --- Executes during object creation, after setting all properties.
 function popupmenu1_CreateFcn(hObject, eventdata, handles)
 % hObject    handle to popupmenu1 (see GCBO)
@@ -185,4 +200,12 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
      set(hObject,'BackgroundColor','white');
 end
 
-set(hObject, 'String', {'Cell Temp', 'Cell Volt', 'Controller Cooling', 'DC Bus Power', 'DC Voltage & Current', 'GPS', 'Motor Cooling', 'RPM vs Torque', 'Throttle - Current Comparison', 'Velocity'});
+set(hObject, 'String', {'Cell Temp', 'Cell Volt', 'Controller Cooling', 'DC Bus Power', 'DC Voltage & Current', 'Motor Cooling', 'RPM vs Torque', 'Throttle - Current Comparison', 'Velocity', 'GPS Speed Trace'});
+
+
+% --- Executes on button press in pushbutton3.
+function pushbutton3_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton3 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+    plots.GPS_LapAnalysis(handles.data.CoreData)

@@ -10,7 +10,7 @@ gearing=58/21;
 wheel_circ=2.082; %m
 mps=CoreData.Powertrain.Motor.ActualMotorRPM.data/gearing*wheel_circ/60;
 mph=mps*2.237;
-plot(CoreData.Powertrain.Motor.ActualMotorRPM.time, mph,'LineWidth',2);
+plot(CoreData.Powertrain.Motor.ActualMotorRPM.time, mph,'LineWidth',1);
 %plot(CoreData.Vehicle.GPS.GPSVelocity);
 %h=legend('Calculated Speed', 'GPS Speed');
 %set(h,'FontSize',10);
